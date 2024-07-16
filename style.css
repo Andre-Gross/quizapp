@@ -4,6 +4,11 @@ body {
 }
 
 
+.bg-f7 {
+    background-color: #f7f7f7;
+}
+
+
 .container {
     min-height: 100vh;
     background-color: #fefaef;
@@ -17,6 +22,7 @@ body {
     flex-direction: row !important;
     font-family: "Rubik", sans-serif;
     width: 100%;
+    max-width: 25rem;
 }
 
 
@@ -43,13 +49,50 @@ body {
 
 
 .answercard {
+    border: none;
     padding: 8px !important;
+}
+
+
+.answercard:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    cursor: pointer;
+}
+
+
+.rightAnswerCard {
+    background-color: #b7f699 !important;
+}
+
+
+.wrongAnswerCard {
+    background-color: #ffa3a4 !important;
 }
 
 
 .answerBadge {
     background-color: #d6d6d6;
     color: black !important;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    font-size: var(--bs-body-font-size);
+}
+
+
+.rightAnswerBadge {
+    background-color: #4cbf19;
+    color: white !important;
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    font-size: var(--bs-body-font-size);
+}
+
+
+.wrongAnswerBadge {
+    background-color: #f81817;
+    color: white !important;
     display: flex !important;
     justify-content: center;
     align-items: center;
