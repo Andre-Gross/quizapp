@@ -1,33 +1,91 @@
 <!DOCTYPE html>
 <html lang="de">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    
+
     <link rel="icon" type="image/x-icon" href="">
 
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="styles/assets.css">
     <link rel="stylesheet" href="styles/header.css">
     <link rel="stylesheet" href="styles/footer.css">
+    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css"> <!-- Bootstrap Styles Datei  -->
 
-    <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Einbindung der Schriftarten Roboto & PT Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=PT+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap"
+        rel="stylesheet">
 
     <script src="script.js"></script>
     <script src="scripts/renderHTML"></script>
     <script src="scripts/templates.js"></script>
 
 </head>
+
 <body onload="includeHTML()">
 
     <div w3-include-html="templates/header.html"></div>
 
+    <div class="container">
+        <div class="card quizcard">
+            <div class="card quizcardNav nav flex-column">
+                    <img src="img/logo.png" class="my-2 w-50 align-self-center">
+                <div>
+                    <a class="nav-link active" aria-current="page" href="#">KI</a>
+                    <a class="nav-link" href="#">Link</a>
+                    <a class="nav-link" href="#">Link</a>
+                </div>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Frage</h5>
 
+                <div class="card rounded-0 mb-2">
+                    <div class="card-body answercard d-inline-flex">
+                        <span class="answerBadge badge rounded-0">A</span>
+                        <div class="d-flex align-items-center">
+                            <span class="answerText">Anwort</span>
+                        </div>
+                    </div>
+                </div>
 
+                <div class="card rounded-0 mb-2">
+                    <div class="card-body answercard d-inline-flex">
+                        <span class="answerBadge badge rounded-0">B</span>
+                        <div class="d-flex align-items-center">
+                            <span class=" answerText">Anwort</span>
+                        </div>
+                    </div>
+                </div>
 
+                <div class="card rounded-0 mb-2">
+                    <div class="card-body answercard d-inline-flex">
+                        <span class="answerBadge badge rounded-0">C</span>
+                        <div class="d-flex align-items-center">
+                            <span class="answerText">Anwort</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card rounded-0 mb-2">
+                    <div class="card-body answercard d-inline-flex">
+                        <span class="answerBadge badge rounded-0">D</span>
+                        <div class="d-flex align-items-center">
+                            <span class="answerText">Anwort</span>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
 
     <div w3-include-html="templates/footer.html"></div>
-    
+
 </body>
+
 </html>
