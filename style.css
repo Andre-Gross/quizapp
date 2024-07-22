@@ -4,6 +4,11 @@ body {
 }
 
 
+button {
+    border: none;
+}
+
+
 .bg-f7 {
     background-color: #f7f7f7;
 }
@@ -30,6 +35,7 @@ body {
     background-color: #27355c !important;
     border-top-right-radius: 0 !important;
     border-bottom-right-radius: 0 !important;
+    min-width: 72px !important;
 }
 
 
@@ -39,6 +45,7 @@ body {
 
 
 .quizcardNav a:hover {
+    border-left: 4px solid white !important;
     color: white;
 }
 
@@ -54,7 +61,7 @@ body {
 }
 
 
-.answercard:hover {
+.hovereffect:hover {
     background-color: rgba(0, 0, 0, 0.05);
     cursor: pointer;
 }
@@ -102,4 +109,13 @@ body {
 
 .answerText {
     margin-left: 24px;
+}
+
+
+.lastNextQuestion {
+    border-radius: 999px;
+    width: 24px;
+    height: 24px;
+    background-color: #dadef5;
+    font-weight: 700;
 }
