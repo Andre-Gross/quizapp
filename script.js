@@ -40,34 +40,43 @@ let gaveAnswer = false;
 
 
 function init() {
-    let question = questions[currentQuestion];
+    resetAnswercardsAndBadges();
+    fillQuestionTextAndAnswers();
 
+    document.getElementById('nextButton').disabled = true;
+}
+
+
+function resetAnswercardsAndBadges() {
     for (let i = 1; i < 5; i++) {
         document.getElementById(`answercard_${i}`).classList.remove('wrongAnswercard');
         document.getElementById(`answercard_${i}`).classList.remove('rightAnswercard');
         document.getElementById(`answercard_${i}`).classList.add('answercard');
-        
+
         document.getElementById(`answerBadge_${i}`).classList.remove('wrongAnswerBadge');
         document.getElementById(`answerBadge_${i}`).classList.remove('rightAnswerBadge');
         document.getElementById(`answerBadge_${i}`).classList.add('answerBadge');
-        
+
         document.getElementById(`answercard_${i}`).classList.add('hovereffect')
     }
+
+    gaveAnswer = false;
+}
+
+
+function fillQuestionTextAndAnswers() {
+    let question = questions[currentQuestion];
 
     document.getElementById('questionText').innerHTML = question.question;
     document.getElementById('answer_1').innerHTML = question.answer_1;
     document.getElementById('answer_2').innerHTML = question.answer_2;
     document.getElementById('answer_3').innerHTML = question.answer_3;
     document.getElementById('answer_4').innerHTML = question.answer_4;
-
-    gaveAnswer = false;
-    document.getElementById('nextButton').disabled = true;
 }
 
 
 // Funktion um die Farbkodierung anzuzeigen, ob die geklickte Antwort richtig oder falsch war.
 function selectedAnswer(selection) {
-    let question = questions[currentQuestion];
     lastSelection = selection;
 
     switch (gaveAnswer) {
@@ -76,24 +85,7 @@ function selectedAnswer(selection) {
         case false:
             gaveAnswer = true
 
-            switch (selection) {
-                case question.right_answer:
-                    document.getElementById(`answercard_${selection}`).classList.add('rightAnswercard');
-
-                    document.getElementById(`answerBadge_${selection}`).classList.remove('answerBadge');
-                    document.getElementById(`answerBadge_${selection}`).classList.add('rightAnswerBadge');
-                    break;
-                default:
-                    document.getElementById(`answercard_${question.right_answer}`).classList.add('rightAnswercard');
-
-                    document.getElementById(`answerBadge_${question.right_answer}`).classList.remove('answerBadge');
-                    document.getElementById(`answerBadge_${question.right_answer}`).classList.add('rightAnswerBadge');
-
-                    document.getElementById(`answercard_${selection}`).classList.add('wrongAnswercard');
-
-                    document.getElementById(`answerBadge_${selection}`).classList.remove('answerBadge');
-                    document.getElementById(`answerBadge_${selection}`).classList.add('wrongAnswerBadge');
-            }
+            addColoursToRightAndWrongAnswers(selection);
     }
 
     for (let i = 1; i < 5; i++) {
@@ -101,6 +93,30 @@ function selectedAnswer(selection) {
     }
 
     document.getElementById('nextButton').disabled = false;
+}
+
+
+function addColoursToRightAndWrongAnswers(selection) {
+    let question = questions[currentQuestion];
+    
+    switch (selection) {
+        case question.right_answer:
+            document.getElementById(`answercard_${selection}`).classList.add('rightAnswercard');
+
+            document.getElementById(`answerBadge_${selection}`).classList.remove('answerBadge');
+            document.getElementById(`answerBadge_${selection}`).classList.add('rightAnswerBadge');
+            break;
+        default:
+            document.getElementById(`answercard_${question.right_answer}`).classList.add('rightAnswercard');
+
+            document.getElementById(`answerBadge_${question.right_answer}`).classList.remove('answerBadge');
+            document.getElementById(`answerBadge_${question.right_answer}`).classList.add('rightAnswerBadge');
+
+            document.getElementById(`answercard_${selection}`).classList.add('wrongAnswercard');
+
+            document.getElementById(`answerBadge_${selection}`).classList.remove('answerBadge');
+            document.getElementById(`answerBadge_${selection}`).classList.add('wrongAnswerBadge');
+    }
 }
 
 
