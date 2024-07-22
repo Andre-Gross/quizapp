@@ -40,14 +40,73 @@ let gaveAnswer = false;
 
 
 function init() {
-    resetAnswercardsAndBadges();
-    fillQuestionTextAndAnswers();
+
+    if (currentQuestion < 0) {
+        // showStartScreen();
+    } else if (currentQuestion >= questions.length) {
+        // showEndScreen();
+    } else {
+        fillQnAHTML();
+        resetAnswers();
+        fillQnAContent();
+    }
 
     document.getElementById('nextButton').disabled = true;
 }
 
 
-function resetAnswercardsAndBadges() {
+function fillQnAHTML() {
+    let quizcardContent = document.getElementById('quizcardContent')
+
+    quizcardContent.innerHTML = '';
+    quizcardContent.innerHTML = /*HTML*/`
+        <h5 id="questionText" class="card-title">Frage</h5>
+
+        <div class="card border-0 rounded-0 mb-2">
+            <div id="answercard_1" class="card-body answercard hovereffect d-inline-flex"
+                onclick="selectedAnswer(1)">
+                <span id="answerBadge_1" class="answerBadge badge rounded-0">A</span>
+                <div class="d-flex align-items-center">
+                    <span id="answer_1" class="answerText">Anwort</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-0 rounded-0 mb-2">
+            <div id="answercard_2" class="card-body answercard hovereffect d-inline-flex"
+                onclick="selectedAnswer(2)">
+                <span id="answerBadge_2" class="answerBadge badge rounded-0">B</span>
+                <div class="d-flex align-items-center">
+                    <span id="answer_2" class=" answerText">Anwort</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-0 rounded-0 mb-2">
+            <div id="answercard_3" class="card-body answercard hovereffect d-inline-flex"
+                onclick="selectedAnswer(3)">
+                <span id="answerBadge_3" class="answerBadge badge rounded-0">C</span>
+                <div class="d-flex align-items-center">
+                    <span id="answer_3" class="answerText">Anwort</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-0 rounded-0 mb-2">
+            <div id="answercard_4" class="card-body answercard hovereffect d-inline-flex"
+                onclick="selectedAnswer(4)">
+                <span id="answerBadge_4" class="answerBadge badge rounded-0">D</span>
+                <div class="d-flex align-items-center">
+                    <span id="answer_4" class="answerText">Anwort</span>
+                </div>
+            </div>
+        </div>
+    `;
+
+}
+
+
+function resetAnswers() {
     for (let i = 1; i < 5; i++) {
         document.getElementById(`answercard_${i}`).classList.remove('wrongAnswercard');
         document.getElementById(`answercard_${i}`).classList.remove('rightAnswercard');
@@ -64,7 +123,7 @@ function resetAnswercardsAndBadges() {
 }
 
 
-function fillQuestionTextAndAnswers() {
+function fillQnAContent() {
     let question = questions[currentQuestion];
 
     document.getElementById('questionText').innerHTML = question.question;
@@ -98,7 +157,7 @@ function selectedAnswer(selection) {
 
 function addColoursToRightAndWrongAnswers(selection) {
     let question = questions[currentQuestion];
-    
+
     switch (selection) {
         case question.right_answer:
             document.getElementById(`answercard_${selection}`).classList.add('rightAnswercard');
