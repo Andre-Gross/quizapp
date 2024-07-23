@@ -34,15 +34,18 @@ let questions = [
 ]
 
 
-let currentQuestion = 0;
+let currentQuestion = -1;
 let lastSelection = 0;
 let gaveAnswer = false;
 
 
 function init() {
+    document.getElementById('quizcardContent').classList.remove('flex-column')
+    document.getElementById('quizcardContent').classList.remove('d-flex')
+    document.getElementById('lastAndNextButton').classList.remove('d-none')
 
     if (currentQuestion < 0) {
-        // showStartScreen();
+        showStartScreen();
     } else if (currentQuestion >= questions.length) {
         // showEndScreen();
     } else {
@@ -52,6 +55,26 @@ function init() {
     }
 
     document.getElementById('nextButton').disabled = true;
+}
+
+
+function showStartScreen() {
+    let quizcardContent = document.getElementById('quizcardContent')
+    quizcardContent.classList.add('d-flex')
+    quizcardContent.classList.add('flex-column')
+
+    document.getElementById('lastAndNextButton').classList.add('d-none')
+
+    quizcardContent.innerHTML = /*HTML*/`
+    <div class="d-flex flex-column">
+        <h5 class="text-center mt-5 card-title w-75 align-self-center">Welcom to the awesome AI Quiz</h5>
+        <p class="text-center card-text w-75 align-self-center">Ready for the challenge?</p>
+    </div>
+        <a href="#" class="btn align-self-end bg-ff4d10 text-light fs-6 font-weight-light" onclick="nextSide()"><span class="mr-3">START NOW</span> ></a>
+    `
+
+    quizcardContent.classList.add('justify-content-between')
+    quizcardContent.classList.add('align-items-center')
 }
 
 

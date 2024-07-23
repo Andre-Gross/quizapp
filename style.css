@@ -9,8 +9,23 @@ button {
 }
 
 
+.mw-25rem {
+    max-width: 25rem;
+}
+
+
 .bg-f7 {
     background-color: #f7f7f7;
+}
+
+
+.bg-ff4d10 {
+    background-color: #ff4d10 !important;
+}
+
+
+.font-weight-light {
+    font-weight: 100 !important;
 }
 
 
@@ -52,6 +67,11 @@ button {
 
 .active {
     border-left: 4px solid white !important;
+}
+
+
+#quizcardContent {
+    min-height: 248px;
 }
 
 
