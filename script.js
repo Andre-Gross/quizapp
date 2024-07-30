@@ -37,17 +37,19 @@ let questions = [
 let currentQuestion = -1;
 let lastSelection = 0;
 let gaveAnswer = false;
+let rightGivenAnswers = 0;
 
 
 function init() {
-    document.getElementById('quizcardContent').classList.remove('flex-column')
-    document.getElementById('quizcardContent').classList.remove('d-flex')
-    document.getElementById('lastAndNextButton').classList.remove('d-none')
+    document.getElementById('quizcardContent').classList.remove('flex-column');
+    document.getElementById('quizcardContent').classList.remove('d-flex');
+    document.getElementById('lastAndNextButton').classList.remove('d-none');
+    document.getElementById('trophyRight').classList.add('d-none');
 
     if (currentQuestion < 0) {
         showStartScreen();
     } else if (currentQuestion >= questions.length) {
-        // showEndScreen();
+        showEndScreen();
     } else {
         fillQnAHTML();
         resetAnswers();
@@ -59,22 +61,32 @@ function init() {
 
 
 function showStartScreen() {
-    let quizcardContent = document.getElementById('quizcardContent')
-    quizcardContent.classList.add('d-flex')
-    quizcardContent.classList.add('flex-column')
+    let quizcardContent = document.getElementById('quizcardContent');
+    quizcardContent.classList.add('d-flex');
+    quizcardContent.classList.add('flex-column');
 
-    document.getElementById('lastAndNextButton').classList.add('d-none')
+    document.getElementById('lastAndNextButton').classList.add('d-none');
+    
+    startScreenHTML(quizcardContent);
 
-    quizcardContent.innerHTML = /*HTML*/`
-    <div class="d-flex flex-column">
-        <h5 class="text-center mt-5 card-title w-75 align-self-center">Welcom to the awesome AI Quiz</h5>
-        <p class="text-center card-text w-75 align-self-center">Ready for the challenge?</p>
-    </div>
-        <a href="#" class="btn align-self-end bg-ff4d10 text-light fs-6 font-weight-light" onclick="nextSide()"><span class="mr-3">START NOW</span> ></a>
-    `
+    quizcardContent.classList.add('justify-content-between');
+    quizcardContent.classList.add('align-items-center');
+}
 
-    quizcardContent.classList.add('justify-content-between')
-    quizcardContent.classList.add('align-items-center')
+
+function showEndScreen() {
+    let quizcardContent = document.getElementById('quizcardContent');
+    quizcardContent.classList.add('d-flex');
+    quizcardContent.classList.add('flex-column');
+
+    document.getElementById('trophyRight').classList.remove('d-none');
+
+    document.getElementById('lastAndNextButton').classList.add('d-none');
+    
+    endScreenHTML(quizcardContent);
+
+    quizcardContent.classList.add('justify-content-between');
+    quizcardContent.classList.add('align-items-center');
 }
 
 
@@ -163,6 +175,7 @@ function selectedAnswer(selection) {
 
     switch (gaveAnswer) {
         case true:
+            rightGivenAnswers++;
             break;
         case false:
             gaveAnswer = true
@@ -210,5 +223,11 @@ function lastSide() {
 
 function nextSide() {
     currentQuestion++;
+    init();
+}
+
+
+function replay() {
+    currentQuestion = -1;
     init();
 }

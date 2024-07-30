@@ -8,9 +8,6 @@
     <link rel="icon" type="image/x-icon" href="">
 
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="styles/assets.css">
-    <link rel="stylesheet" href="styles/header.css">
-    <link rel="stylesheet" href="styles/footer.css">
     <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css"> <!-- Bootstrap Styles Datei  -->
 
     <!-- Einbindung der Schriftarten Roboto & PT Sans -->
@@ -21,8 +18,7 @@
         rel="stylesheet">
 
     <script src="script.js"></script>
-    <script src="scripts/renderHTML"></script>
-    <script src="scripts/templates.js"></script>
+    <script src="scripts/renderHTML.js"></script>
 
 </head>
 
@@ -38,8 +34,10 @@
                 <img src="img/logo.png" class="my-2 w-50 align-self-center">
                 <div>
                     <a class="nav-link active" aria-current="page" href="#">KI</a>
-                    <a class="nav-link" href="#">Link</a>
-                    <a class="nav-link" href="#">Link</a>
+                    <a class="nav-link" href="#">HTML</a>
+                    <a class="nav-link" href="#">CSS</a>
+                    <a class="nav-link mr-2" href="#">Javascript</a>
+                    <a class="nav-link" href="#">Phyton</a>
                 </div>
             </div>
             <div id="quizcardContent" class="card-body bg-f7"></div>
@@ -54,6 +52,11 @@
                 >
             </button>
         </div>
+    </div>
+
+
+    <div id="trophyRight" class="d-none">
+        <img src="img/tropy.png" alt="Tropäe">
     </div>
 
     <div w3-include-html="templates/footer.html"></div>
