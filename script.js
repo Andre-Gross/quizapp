@@ -34,9 +34,10 @@ let questions = [
 ]
 
 
-let currentQuestion = -1;
+let currentQuestion = 4;
 let lastSelection = 0;
 let gaveAnswer = false;
+let lastAnswers = [];
 let rightGivenAnswers = 0;
 
 
@@ -56,6 +57,7 @@ function init() {
         fillQnAContent();
     }
 
+    updateProgressBar()
     document.getElementById('nextButton').disabled = true;
 }
 
@@ -66,7 +68,7 @@ function showStartScreen() {
     quizcardContent.classList.add('flex-column');
 
     document.getElementById('lastAndNextButton').classList.add('d-none');
-    
+
     startScreenHTML(quizcardContent);
 
     quizcardContent.classList.add('justify-content-between');
@@ -80,64 +82,12 @@ function showEndScreen() {
     quizcardContent.classList.add('flex-column');
 
     document.getElementById('trophyRight').classList.remove('d-none');
-
     document.getElementById('lastAndNextButton').classList.add('d-none');
-    
-    endScreenHTML(quizcardContent);
 
     quizcardContent.classList.add('justify-content-between');
     quizcardContent.classList.add('align-items-center');
-}
 
-
-function fillQnAHTML() {
-    let quizcardContent = document.getElementById('quizcardContent')
-
-    quizcardContent.innerHTML = '';
-    quizcardContent.innerHTML = /*HTML*/`
-        <h5 id="questionText" class="card-title">Frage</h5>
-
-        <div class="card border-0 rounded-0 mb-2">
-            <div id="answercard_1" class="card-body answercard hovereffect d-inline-flex"
-                onclick="selectedAnswer(1)">
-                <span id="answerBadge_1" class="answerBadge badge rounded-0">A</span>
-                <div class="d-flex align-items-center">
-                    <span id="answer_1" class="answerText">Anwort</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="card border-0 rounded-0 mb-2">
-            <div id="answercard_2" class="card-body answercard hovereffect d-inline-flex"
-                onclick="selectedAnswer(2)">
-                <span id="answerBadge_2" class="answerBadge badge rounded-0">B</span>
-                <div class="d-flex align-items-center">
-                    <span id="answer_2" class=" answerText">Anwort</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="card border-0 rounded-0 mb-2">
-            <div id="answercard_3" class="card-body answercard hovereffect d-inline-flex"
-                onclick="selectedAnswer(3)">
-                <span id="answerBadge_3" class="answerBadge badge rounded-0">C</span>
-                <div class="d-flex align-items-center">
-                    <span id="answer_3" class="answerText">Anwort</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="card border-0 rounded-0 mb-2">
-            <div id="answercard_4" class="card-body answercard hovereffect d-inline-flex"
-                onclick="selectedAnswer(4)">
-                <span id="answerBadge_4" class="answerBadge badge rounded-0">D</span>
-                <div class="d-flex align-items-center">
-                    <span id="answer_4" class="answerText">Anwort</span>
-                </div>
-            </div>
-        </div>
-    `;
-
+    endScreenHTML(quizcardContent);
 }
 
 
@@ -175,12 +125,22 @@ function selectedAnswer(selection) {
 
     switch (gaveAnswer) {
         case true:
-            rightGivenAnswers++;
             break;
         case false:
             gaveAnswer = true
 
             addColoursToRightAndWrongAnswers(selection);
+
+
+            let rightAnswer = questions[currentQuestion].right_answer;
+
+            // Prüft, ob die Antwort richtig ist und dokumentiert die richtige Anzahl an Antworten.
+            if (selection == rightAnswer) {
+                rightGivenAnswers++;
+                lastAnswers.push(true);
+            } else {
+                lastAnswers.push(false);
+            }
     }
 
     for (let i = 1; i < 5; i++) {
@@ -215,8 +175,36 @@ function addColoursToRightAndWrongAnswers(selection) {
 }
 
 
+function updateProgressBar() {
+    if (currentQuestion >= 0) {
+        let percent = currentQuestion / questions.length;
+        percent = percent * 100;
+        percent = Math.round(percent);
+
+        document.getElementById('progress').classList.remove('d-none');
+        document.getElementById('progress-alternate').classList.add('d-none');
+
+        document.getElementById('progress-bar').style = `width: ${percent}%`;
+        document.getElementById('progress-bar').innerHTML = `${percent}%`
+    } else {
+        document.getElementById('progress').classList.add('d-none');
+        document.getElementById('progress-alternate').classList.remove('d-none');
+    }
+}
+
+
+
 function lastSide() {
     currentQuestion--;
+    let lastSingleAnswer = lastAnswers[currentQuestion];
+
+    switch (lastSingleAnswer) {
+        case true:
+            rightGivenAnswers--;
+        default:
+            lastAnswers.splice[currentQuestion, 1];
+    }
+
     init();
 }
 
@@ -229,5 +217,6 @@ function nextSide() {
 
 function replay() {
     currentQuestion = -1;
+    rightGivenAnswers = 0;
     init();
 }
