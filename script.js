@@ -34,11 +34,14 @@ let questions = [
 ]
 
 
-let currentQuestion = 4;
+let currentQuestion = -1;
 let lastSelection = 0;
 let gaveAnswer = false;
 let lastAnswers = [];
 let rightGivenAnswers = 0;
+
+let AUDIO_SUCCES = new Audio('audio/success.mp3');
+let AUDIO_WRONG = new Audio('audio/wrong.mp3')
 
 
 function init() {
@@ -138,8 +141,10 @@ function selectedAnswer(selection) {
             if (selection == rightAnswer) {
                 rightGivenAnswers++;
                 lastAnswers.push(true);
+                AUDIO_SUCCES.play();
             } else {
                 lastAnswers.push(false);
+                AUDIO_WRONG.play();
             }
     }
 

@@ -1,4 +1,5 @@
 /node_modules
+/audio
 /img
 package-lock.json
 package.json
