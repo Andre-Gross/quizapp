@@ -29,9 +29,7 @@ function endScreenHTML(quizcardContent) {
 }
 
 
-function fillQnAHTML() {
-    let quizcardContent = document.getElementById('quizcardContent')
-
+function fillQnAHTML(quizcardContent) {
     quizcardContent.innerHTML = '';
     quizcardContent.innerHTML = /*HTML*/`
         <h5 id="questionText" class="card-title">Frage</h5>
