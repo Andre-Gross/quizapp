@@ -1,4 +1,7 @@
-function startScreenHTML(quizcardContent) {
+
+
+
+function startScreenHTML() {
     quizcardContent.innerHTML = '';
     quizcardContent.innerHTML = /*HTML*/`
         <div class="d-flex flex-column">
@@ -10,7 +13,7 @@ function startScreenHTML(quizcardContent) {
 }
 
 
-function endScreenHTML(quizcardContent) {
+function endScreenHTML() {
     quizcardContent.innerHTML = '';
     quizcardContent.innerHTML = /*HTML*/`
     <div class="endScreen d-flex flex-column justify-content-between">
@@ -29,7 +32,8 @@ function endScreenHTML(quizcardContent) {
 }
 
 
-function fillQnAHTML(quizcardContent) {
+function fillQnAHTML() {
+    let quizcardContent = document.getElementById('quizcardContent');
     quizcardContent.innerHTML = '';
     quizcardContent.innerHTML = /*HTML*/`
         <h5 id="questionText" class="card-title">Frage</h5>

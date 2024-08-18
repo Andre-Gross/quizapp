@@ -44,18 +44,31 @@ let AUDIO_SUCCES = new Audio('audio/success.mp3');
 let AUDIO_WRONG = new Audio('audio/wrong.mp3')
 
 
-function init() {
-    let quizcardContent = document.getElementById('quizcardContent');
+function remove(id, styleClass) {
+    document.getElementById(id).classList.remove(styleClass);
+}
 
-    document.getElementById('lastAndNextButton').classList.remove('d-none');
-    document.getElementById('trophyRight').classList.add('d-none');
+
+function add(id, styleClass) {
+    document.getElementById(id).classList.add(styleClass);
+}
+
+
+function fillHTML(id, content) {
+    document.getElementById(id).innerHTML = `${content}`;
+}
+
+
+function init() {
+    remove('lastAndNextButton', 'd-none');
+    add('trophyRight', 'd-none');
 
     if (currentQuestion < 0) {
-        showStartScreen(quizcardContent);
+        showStartScreen();
     } else if (currentQuestion >= questions.length) {
-        showEndScreen(quizcardContent);
+        showEndScreen();
     } else {
-        showQuestionsAndAnswers(quizcardContent);
+        showQuestionsAndAnswers();
     }
 
     updateProgressBar()
@@ -63,36 +76,35 @@ function init() {
 }
 
 
-function showStartScreen(quizcardContent) {
-    document.getElementById('lastAndNextButton').classList.add('d-none');
+function showStartScreen() {
+    add('lastAndNextButton', 'd-none');
 
-    startScreenHTML(quizcardContent);
+    startScreenHTML();
 }
 
 
-function showEndScreen(quizcardContent) {
-    document.getElementById('trophyRight').classList.remove('d-none');
-    document.getElementById('lastAndNextButton').classList.add('d-none');
+function showEndScreen() {
+    remove('trophyRight', 'd-none');
+    add('lastAndNextButton', 'd-none');
 
-    endScreenHTML(quizcardContent);
+    endScreenHTML();
 }
 
 
-function showQuestionsAndAnswers(quizcardContent) {
-    quizcardContent.classList.remove('align-items-center');
-    fillQnAHTML(quizcardContent);
+function showQuestionsAndAnswers() {
+    remove('quizcardContent', 'align-items-center');
+    fillQnAHTML();
     resetAnswers();
-    fillQnAContent(quizcardContent);
+    fillQnAContent();
 }
 
 
-// Entfernt die Farbcodierungen von den richtigen und falschen Antworten
 function resetAnswers() {
     for (let i = 1; i < 5; i++) {
         resetAnswerCards(i);
         resetAnswerBadges(i)
 
-        document.getElementById(`answercard_${i}`).classList.add('hovereffect') //Aktiviert den Hovereffect
+        add(`answercard_${i}`, 'hovereffect');
     }
 
     gaveAnswer = false;
@@ -100,31 +112,30 @@ function resetAnswers() {
 
 
 function resetAnswerCards(i) {
-    document.getElementById(`answercard_${i}`).classList.remove('wrongAnswercard');
-    document.getElementById(`answercard_${i}`).classList.remove('rightAnswercard');
-    document.getElementById(`answercard_${i}`).classList.add('answercard');
+    remove(`answercard_${i}`, 'wrongAnswercard');
+    remove(`answercard_${i}`, 'rightAnswercard');
+    add(`answercard_${i}`, 'answercard');
 }
 
 
 function resetAnswerBadges(i) {
-    document.getElementById(`answerBadge_${i}`).classList.remove('wrongAnswerBadge');
-    document.getElementById(`answerBadge_${i}`).classList.remove('rightAnswerBadge');
-    document.getElementById(`answerBadge_${i}`).classList.add('answerBadge');
+    remove(`answerBadge_${i}`, 'wrongAnswerBadge');
+    remove(`answerBadge_${i}`, 'rightAnswerBadge');
+    add(`answerBadge_${i}`, 'answerBadge');
 }
 
 
 function fillQnAContent() {
     let question = questions[currentQuestion];
 
-    document.getElementById('questionText').innerHTML = question.question;
-    document.getElementById('answer_1').innerHTML = question.answer_1;
-    document.getElementById('answer_2').innerHTML = question.answer_2;
-    document.getElementById('answer_3').innerHTML = question.answer_3;
-    document.getElementById('answer_4').innerHTML = question.answer_4;
+    fillHTML('questionText', question.question);
+    fillHTML('answer_1', question.answer_1);
+    fillHTML('answer_2', question.answer_2);
+    fillHTML('answer_3', question.answer_3);
+    fillHTML('answer_4', question.answer_4);
 }
 
 
-// Funktion um die Farbkodierung anzuzeigen, ob die geklickte Antwort richtig oder falsch war.
 function selectedAnswer(selection) {
 
     switch (gaveAnswer) {
@@ -137,7 +148,7 @@ function selectedAnswer(selection) {
             checkAnswer(selection);
     }
     for (let i = 1; i < 5; i++) {
-        document.getElementById(`answercard_${i}`).classList.remove('hovereffect')
+        remove(`answercard_${i}`, 'hovereffect')
     }
     document.getElementById('nextButton').disabled = false;
 }
@@ -177,16 +188,16 @@ function wrongAnswer(selection, rightAnswer) {
 
 
 function showRightAnswer(selection) {
-    document.getElementById(`answercard_${selection}`).classList.add('rightAnswercard');
-    document.getElementById(`answerBadge_${selection}`).classList.remove('answerBadge');
-    document.getElementById(`answerBadge_${selection}`).classList.add('rightAnswerBadge');
+    add(`answercard_${selection}`, 'rightAnswercard');
+    remove(`answerBadge_${selection}`, 'answerBadge');
+    add(`answerBadge_${selection}`, 'rightAnswerBadge');
 }
 
 
 function showWrongSelection(selection) {
-    document.getElementById(`answercard_${selection}`).classList.add('wrongAnswercard');
-    document.getElementById(`answerBadge_${selection}`).classList.remove('answerBadge');
-    document.getElementById(`answerBadge_${selection}`).classList.add('wrongAnswerBadge');
+    add(`answercard_${selection}`, 'wrongAnswercard');
+    remove(`answerBadge_${selection}`, 'answerBadge');
+    add(`answerBadge_${selection}`, 'wrongAnswerBadge');
 }
 
 
@@ -202,11 +213,11 @@ function updateProgressBar() {
 function showProgressBar() {
     let percent = calculatePercent();
 
-    document.getElementById('progress').classList.remove('d-none');
-    document.getElementById('progress-alternate').classList.add('d-none');
+    remove('progress', 'd-none');
+    add('progress-alternate', 'd-none');
 
     document.getElementById('progress-bar').style = `width: ${percent}%`;
-    document.getElementById('progress-bar').innerHTML = `${percent}%`
+    fillHTML('progress-bar', `${percent}%`);
 }
 
 
@@ -220,8 +231,8 @@ function calculatePercent() {
 
 
 function hideProgressBar() {
-    document.getElementById('progress').classList.add('d-none');
-    document.getElementById('progress-alternate').classList.remove('d-none');
+    add('progress', 'd-none');
+    remove('progress-alternate', 'd-none');
 }
 
 
